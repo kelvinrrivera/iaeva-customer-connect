@@ -30,7 +30,7 @@ const Hero = () => {
   return (
     <section 
       ref={heroRef}
-      className="pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden relative"
+      className="pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden relative"
     >
       {/* Círculos decorativos */}
       <div className="absolute top-20 right-[20%] w-64 h-64 rounded-full bg-gradient-to-r from-iaeva-blue/10 to-iaeva-purple/10 blur-3xl z-0"></div>
@@ -44,7 +44,7 @@ const Hero = () => {
               Revolucionando la atención médica
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight">
-              Atención al Cliente <span className="gradient-text">Inteligente</span> para el Sector Médico
+              Atención al Cliente <span className="text-iaeva-blue">Inteligente</span> para el Sector Médico
             </h1>
             <p className="text-lg md:text-xl text-gray-600 max-w-xl">
               IAEVA combina la potencia de la IA con el toque humano para transformar la experiencia del paciente, la gestión de citas y la comunicación en clínicas y hospitales.
@@ -70,9 +70,13 @@ const Hero = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-radial from-iaeva-blue/10 to-transparent rounded-3xl"></div>
               <img 
-                src="/lovable-uploads/31e5f6a3-76d4-4c80-88ff-cdcf0ff7290f.png" 
+                src="/lovable-uploads/39f47b90-761f-4d63-a41c-47282e7b3507.png" 
                 alt="IAEVA atención al cliente con IA" 
                 className="w-full h-auto rounded-3xl shadow-soft object-cover z-10 relative"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = "/lovable-uploads/31e5f6a3-76d4-4c80-88ff-cdcf0ff7290f.png";
+                }}
               />
               
               {/* Tarjeta flotante */}
@@ -104,24 +108,14 @@ const Hero = () => {
         </div>
         
         {/* Marcas asociadas */}
-        <div className="mt-20 opacity-0 animate-fade-in" style={{ animationDelay: '0.9s', animationFillMode: 'forwards' }}>
-          <p className="text-center text-gray-500 text-sm mb-8">CONFÍAN EN NOSOTROS</p>
+        <div className="mt-16 opacity-0 animate-fade-in" style={{ animationDelay: '0.9s', animationFillMode: 'forwards' }}>
+          <p className="text-center text-gray-500 text-sm mb-6">CONFÍAN EN NOSOTROS</p>
           <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-8">
-            <div className="w-32 h-12 flex items-center justify-center opacity-70 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
-              <img src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY4MzU1MDM1MA&ixlib=rb-4.0.3&q=80&w=1080&h=1080&auto=format&fit=crop&w=150" alt="Hospital Partner" className="max-h-8" />
-            </div>
-            <div className="w-32 h-12 flex items-center justify-center opacity-70 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
-              <img src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY4MzU1MDM1MA&ixlib=rb-4.0.3&q=80&w=1080&h=1080&auto=format&fit=crop&w=150" alt="Health Clinic" className="max-h-8" />
-            </div>
-            <div className="w-32 h-12 flex items-center justify-center opacity-70 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
-              <img src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY4MzU1MDM1MA&ixlib=rb-4.0.3&q=80&w=1080&h=1080&auto=format&fit=crop&w=150" alt="Medical Center" className="max-h-8" />
-            </div>
-            <div className="w-32 h-12 flex items-center justify-center opacity-70 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
-              <img src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY4MzU1MDM1MA&ixlib=rb-4.0.3&q=80&w=1080&h=1080&auto=format&fit=crop&w=150" alt="Health Service" className="max-h-8" />
-            </div>
-            <div className="w-32 h-12 flex items-center justify-center opacity-70 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
-              <img src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY4MzU1MDM1MA&ixlib=rb-4.0.3&q=80&w=1080&h=1080&auto=format&fit=crop&w=150" alt="Medical Lab" className="max-h-8" />
-            </div>
+            {[1, 2, 3, 4, 5].map((i) => (
+              <div key={i} className="w-32 h-12 flex items-center justify-center opacity-70 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
+                <div className="w-24 h-8 bg-gray-200 rounded-md animate-pulse"></div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

@@ -8,9 +8,10 @@ interface StepProps {
   title: string;
   description: string;
   delay?: string;
+  color?: string;
 }
 
-const Step = ({ number, title, description, delay = "0s" }: StepProps) => {
+const Step = ({ number, title, description, delay = "0s", color = "from-iaeva-blue to-iaeva-purple" }: StepProps) => {
   const stepRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const Step = ({ number, title, description, delay = "0s" }: StepProps) => {
       style={{ animationDelay: delay, animationFillMode: 'forwards' }}
     >
       <div className="flex-shrink-0">
-        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-iaeva-blue to-iaeva-purple text-white font-bold">
+        <div className={`flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r ${color} text-white font-bold`}>
           {number}
         </div>
       </div>
@@ -55,6 +56,7 @@ const Step = ({ number, title, description, delay = "0s" }: StepProps) => {
 
 const HowItWorks = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -77,6 +79,37 @@ const HowItWorks = () => {
     };
   }, []);
 
+  const steps = [
+    {
+      number: "1",
+      title: "Interacción Inicial",
+      description: "El paciente contacta a través de WhatsApp o el widget web. IAEVA inicia la conversación y responde consultas básicas.",
+      delay: "0.1s",
+      color: "from-iaeva-blue to-iaeva-teal"
+    },
+    {
+      number: "2",
+      title: "Resolución o Transferencia",
+      description: "IAEVA resuelve la consulta directamente o, si es necesario, transfiere la conversación a un agente humano sin perder contexto.",
+      delay: "0.2s",
+      color: "from-iaeva-teal to-iaeva-purple"
+    },
+    {
+      number: "3",
+      title: "Gestión de Citas",
+      description: "El sistema puede agendar, modificar o cancelar citas, optimizando automáticamente los horarios y enviando recordatorios.",
+      delay: "0.3s",
+      color: "from-iaeva-purple to-iaeva-blue"
+    },
+    {
+      number: "4",
+      title: "Seguimiento Continuo",
+      description: "IAEVA envía recordatorios 24 horas antes de la cita y facilita la confirmación, reprogramación o cancelación si es necesario.",
+      delay: "0.4s",
+      color: "from-iaeva-blue to-iaeva-purple"
+    }
+  ];
+
   return (
     <section id="como-funciona" className="py-20">
       <div className="container mx-auto px-4 md:px-6">
@@ -89,9 +122,20 @@ const HowItWorks = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-radial from-iaeva-purple/10 to-transparent rounded-3xl"></div>
               <img
+                ref={imageRef}
                 src="/lovable-uploads/cd8c2d66-8439-45cc-a904-ebccb8369983.png"
                 alt="IAEVA en acción"
                 className="w-full h-auto rounded-3xl shadow-soft object-cover z-10 relative"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  // Fallback a un div de color si la imagen no carga
+                  if (target.parentNode) {
+                    const div = document.createElement('div');
+                    div.className = "w-full h-[300px] bg-gradient-to-r from-iaeva-blue/20 to-iaeva-purple/20 rounded-3xl flex items-center justify-center";
+                    div.innerHTML = '<span class="text-iaeva-blue font-bold text-xl">IAEVA en acción</span>';
+                    target.parentNode.replaceChild(div, target);
+                  }
+                }}
               />
               
               {/* Chat flotante */}
@@ -127,30 +171,16 @@ const HowItWorks = () => {
             </p>
             
             <div className="space-y-8">
-              <Step 
-                number="1"
-                title="Interacción Inicial"
-                description="El paciente contacta a través de WhatsApp o el widget web. IAEVA inicia la conversación y responde consultas básicas."
-                delay="0.1s"
-              />
-              <Step 
-                number="2"
-                title="Resolución o Transferencia"
-                description="IAEVA resuelve la consulta directamente o, si es necesario, transfiere la conversación a un agente humano sin perder contexto."
-                delay="0.2s"
-              />
-              <Step 
-                number="3"
-                title="Gestión de Citas"
-                description="El sistema puede agendar, modificar o cancelar citas, optimizando automáticamente los horarios y enviando recordatorios."
-                delay="0.3s"
-              />
-              <Step 
-                number="4"
-                title="Seguimiento Continuo"
-                description="IAEVA envía recordatorios 24 horas antes de la cita y facilita la confirmación, reprogramación o cancelación si es necesario."
-                delay="0.4s"
-              />
+              {steps.map((step, index) => (
+                <Step 
+                  key={index}
+                  number={step.number}
+                  title={step.title}
+                  description={step.description}
+                  delay={step.delay}
+                  color={step.color}
+                />
+              ))}
             </div>
             
             <div className="mt-10">
