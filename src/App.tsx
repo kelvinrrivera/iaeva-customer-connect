@@ -4,7 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Index from "./pages/Index";
 import CasosDeUso from "./pages/CasosDeUso";
 import NotFound from "./pages/NotFound";
@@ -14,6 +14,8 @@ import "./App.css";
 const queryClient = new QueryClient();
 
 const App = () => {
+  const [imagesPreloaded, setImagesPreloaded] = useState(false);
+
   // Precargar imágenes críticas
   useEffect(() => {
     const preloadImages = [
@@ -22,8 +24,22 @@ const App = () => {
       "/lovable-uploads/39f47b90-761f-4d63-a41c-47282e7b3507.png"
     ];
     
+    let loadedCount = 0;
+    
     preloadImages.forEach(src => {
       const img = new Image();
+      img.onload = () => {
+        loadedCount += 1;
+        if (loadedCount === preloadImages.length) {
+          setImagesPreloaded(true);
+        }
+      };
+      img.onerror = () => {
+        loadedCount += 1;
+        if (loadedCount === preloadImages.length) {
+          setImagesPreloaded(true);
+        }
+      };
       img.src = src;
     });
   }, []);

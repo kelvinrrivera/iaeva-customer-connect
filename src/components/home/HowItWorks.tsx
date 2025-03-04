@@ -1,5 +1,5 @@
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -56,7 +56,7 @@ const Step = ({ number, title, description, delay = "0s", color = "from-iaeva-bl
 
 const HowItWorks = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -71,6 +71,11 @@ const HowItWorks = () => {
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
+
+    // Preload the image
+    const img = new Image();
+    img.src = "/lovable-uploads/cd8c2d66-8439-45cc-a904-ebccb8369983.png";
+    img.onload = () => setImageLoaded(true);
 
     return () => {
       if (sectionRef.current) {
@@ -121,25 +126,24 @@ const HowItWorks = () => {
           >
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-radial from-iaeva-purple/10 to-transparent rounded-3xl"></div>
+              
+              {!imageLoaded && (
+                <div className="w-full h-80 bg-gradient-to-r from-gray-200 to-gray-300 animate-pulse rounded-3xl"></div>
+              )}
+              
               <img
-                ref={imageRef}
                 src="/lovable-uploads/cd8c2d66-8439-45cc-a904-ebccb8369983.png"
                 alt="IAEVA en acción"
-                className="w-full h-auto rounded-3xl shadow-soft object-cover z-10 relative"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  // Fallback a un div de color si la imagen no carga
-                  if (target.parentNode) {
-                    const div = document.createElement('div');
-                    div.className = "w-full h-[300px] bg-gradient-to-r from-iaeva-blue/20 to-iaeva-purple/20 rounded-3xl flex items-center justify-center";
-                    div.innerHTML = '<span class="text-iaeva-blue font-bold text-xl">IAEVA en acción</span>';
-                    target.parentNode.replaceChild(div, target);
-                  }
+                className={`w-full h-auto rounded-3xl shadow-soft object-cover z-10 relative ${!imageLoaded ? 'hidden' : ''}`}
+                onLoad={() => setImageLoaded(true)}
+                onError={() => {
+                  // Fallback a un placeholder si la imagen no carga
+                  setImageLoaded(false);
                 }}
               />
               
               {/* Chat flotante */}
-              <div className="absolute -bottom-6 -right-6 p-4 glass-panel shadow-soft max-w-xs animate-pulse-soft">
+              <div className="absolute -bottom-6 -right-6 p-4 bg-white/90 backdrop-blur-md border border-white/20 rounded-xl shadow-soft max-w-xs animate-pulse-soft">
                 <div className="flex flex-col">
                   <div className="flex items-start gap-3 mb-3">
                     <div className="w-8 h-8 rounded-full bg-gradient-to-r from-iaeva-blue to-iaeva-purple flex-shrink-0"></div>

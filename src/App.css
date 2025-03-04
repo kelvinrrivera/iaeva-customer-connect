@@ -1,4 +1,5 @@
 
+
 /* Estilos específicos para la aplicación que no están en Tailwind */
 
 .gradient-text {
@@ -45,3 +46,14 @@
 .animate-fade-in-up {
   animation: fade-in-up 0.8s ease-out;
 }
+
+/* Glass panel styles */
+.glass-panel {
+  @apply bg-white/90 backdrop-blur-md border border-white/20 rounded-xl;
+}
+
+/* Image loading skeleton */
+.image-skeleton {
+  @apply w-full h-full bg-gradient-to-r from-gray-200 to-gray-300 animate-pulse rounded-3xl;
+}
+

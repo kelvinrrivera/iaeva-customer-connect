@@ -8,7 +8,7 @@ interface StepProps {
   delay?: number;
 }
 
-const Step = ({ number, title, description, delay = 0 }: StepProps) => {
+const Step = ({ number, title, description }: StepProps) => {
   return (
     <div className="flex flex-col items-center">
       <div className="w-16 h-16 rounded-full bg-white shadow-soft flex items-center justify-center mb-4 relative z-10">

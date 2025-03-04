@@ -1,10 +1,11 @@
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
 const Hero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -19,6 +20,11 @@ const Hero = () => {
     if (heroRef.current) {
       observer.observe(heroRef.current);
     }
+
+    // Preload the hero image
+    const heroImage = new Image();
+    heroImage.src = "/lovable-uploads/39f47b90-761f-4d63-a41c-47282e7b3507.png";
+    heroImage.onload = () => setImagesLoaded(true);
 
     return () => {
       if (heroRef.current) {
@@ -69,18 +75,21 @@ const Hero = () => {
           <div className="w-full lg:w-1/2 opacity-0 animate-fade-in" style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}>
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-radial from-iaeva-blue/10 to-transparent rounded-3xl"></div>
+              {!imagesLoaded && (
+                <div className="w-full h-96 bg-gradient-to-r from-gray-200 to-gray-300 animate-pulse rounded-3xl"></div>
+              )}
               <img 
                 src="/lovable-uploads/39f47b90-761f-4d63-a41c-47282e7b3507.png" 
                 alt="IAEVA atención al cliente con IA" 
-                className="w-full h-auto rounded-3xl shadow-soft object-cover z-10 relative"
+                className={`w-full h-auto rounded-3xl shadow-soft object-cover z-10 relative ${!imagesLoaded ? 'hidden' : ''}`}
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = "/lovable-uploads/31e5f6a3-76d4-4c80-88ff-cdcf0ff7290f.png";
+                  target.src = "/placeholder.svg";
                 }}
               />
               
               {/* Tarjeta flotante */}
-              <div className="absolute -bottom-6 -left-6 lg:-left-20 p-4 glass-panel shadow-soft animate-pulse-soft">
+              <div className="absolute -bottom-6 -left-6 lg:-left-20 p-4 bg-white/90 backdrop-blur-md border border-white/20 rounded-xl shadow-soft animate-pulse-soft">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-r from-iaeva-blue to-iaeva-purple flex items-center justify-center">
                     <span className="text-white font-bold">97%</span>
@@ -92,7 +101,7 @@ const Hero = () => {
                 </div>
               </div>
               
-              <div className="absolute top-10 -right-6 lg:-right-10 p-4 glass-panel shadow-soft animate-pulse-soft" style={{ animationDelay: '1s' }}>
+              <div className="absolute top-10 -right-6 lg:-right-10 p-4 bg-white/90 backdrop-blur-md border border-white/20 rounded-xl shadow-soft animate-pulse-soft" style={{ animationDelay: '1s' }}>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-r from-iaeva-teal to-iaeva-blue flex items-center justify-center">
                     <span className="text-white font-bold">24/7</span>
@@ -107,13 +116,13 @@ const Hero = () => {
           </div>
         </div>
         
-        {/* Marcas asociadas */}
+        {/* Logos de marcas asociadas */}
         <div className="mt-16 opacity-0 animate-fade-in" style={{ animationDelay: '0.9s', animationFillMode: 'forwards' }}>
           <p className="text-center text-gray-500 text-sm mb-6">CONFÍAN EN NOSOTROS</p>
           <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-8">
             {[1, 2, 3, 4, 5].map((i) => (
               <div key={i} className="w-32 h-12 flex items-center justify-center opacity-70 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
-                <div className="w-24 h-8 bg-gray-200 rounded-md animate-pulse"></div>
+                <div className="w-24 h-8 bg-gray-200 rounded-md"></div>
               </div>
             ))}
           </div>
