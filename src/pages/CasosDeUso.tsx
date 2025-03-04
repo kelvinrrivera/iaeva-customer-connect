@@ -1,7 +1,6 @@
-
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle, Building, Hospital, Flask, Calendar, MessageSquare, Clock, Heart } from 'lucide-react';
+import { ArrowRight, CheckCircle, Building, Hospital, Beaker, Calendar, MessageSquare, Clock, Heart } from 'lucide-react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { cn } from '@/lib/utils';
@@ -105,7 +104,7 @@ const CasosDeUso = () => {
               {/* Laboratorios */}
               <div className="bg-white rounded-xl shadow-soft overflow-hidden transition-all hover:shadow-lg hover:translate-y-[-4px]">
                 <div className="h-48 bg-gradient-to-r from-iaeva-blue/20 to-iaeva-purple/20 flex items-center justify-center">
-                  <Flask size={72} className="text-iaeva-blue" />
+                  <Beaker size={72} className="text-iaeva-blue" />
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-3">Laboratorios</h3>
