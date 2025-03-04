@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,16 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+                iaeva: {
+                    blue: '#0EA5E9',
+                    purple: '#8B5CF6',
+                    teal: '#0D9488',
+                    'light-blue': '#7DD3FC',
+                    'light-purple': '#C4B5FD',
+                    'bg-light': '#F0F9FF',
+                    'bg-dark': '#1E293B'
+                }
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,12 +94,50 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+                'fade-in': {
+                    '0%': { opacity: '0' },
+                    '100%': { opacity: '1' }
+                },
+                'fade-in-up': {
+                    '0%': { opacity: '0', transform: 'translateY(20px)' },
+                    '100%': { opacity: '1', transform: 'translateY(0)' }
+                },
+                'fade-in-down': {
+                    '0%': { opacity: '0', transform: 'translateY(-20px)' },
+                    '100%': { opacity: '1', transform: 'translateY(0)' }
+                },
+                'blur-in': {
+                    '0%': { opacity: '0', filter: 'blur(12px)' },
+                    '100%': { opacity: '1', filter: 'blur(0)' }
+                },
+                'pulse-soft': {
+                    '0%, 100%': { opacity: '1' },
+                    '50%': { opacity: '0.8' }
+                }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
-			}
+				'accordion-up': 'accordion-up 0.2s ease-out',
+                'fade-in': 'fade-in 0.6s ease-out',
+                'fade-in-up': 'fade-in-up 0.8s ease-out',
+                'fade-in-down': 'fade-in-down 0.8s ease-out',
+                'blur-in': 'blur-in 0.8s ease-out',
+                'pulse-soft': 'pulse-soft 3s infinite ease-in-out'
+			},
+            fontFamily: {
+                sans: ['Inter var', 'Inter', 'sans-serif'],
+                display: ['Manrope', 'sans-serif']
+            },
+            backgroundImage: {
+                'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                'hero-pattern': 'url("/public/lovable-uploads/70f1e057-5535-4a7b-92cf-ca0dbf82d8c6.png")'
+            },
+            boxShadow: {
+                'soft': '0 4px 20px rgba(0, 0, 0, 0.05)',
+                'glass': '0 8px 32px rgba(0, 0, 0, 0.06)',
+                'button': '0 4px 10px rgba(139, 92, 246, 0.3)'
+            }
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
