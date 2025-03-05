@@ -21,7 +21,7 @@ const App = () => {
     const preloadImages = [
       "/lovable-uploads/31e5f6a3-76d4-4c80-88ff-cdcf0ff7290f.png",
       "/lovable-uploads/cd8c2d66-8439-45cc-a904-ebccb8369983.png",
-      "/lovable-uploads/39f47b90-761f-4d63-a41c-47282e7b3507.png"
+      "https://kelvinscale.net/wp-content/uploads/2025/01/mixto-image-ks-header.svg"
     ];
     
     let loadedCount = 0;

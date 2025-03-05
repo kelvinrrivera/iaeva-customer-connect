@@ -23,7 +23,7 @@ const Hero = () => {
 
     // Preload the hero image
     const heroImage = new Image();
-    heroImage.src = "/lovable-uploads/39f47b90-761f-4d63-a41c-47282e7b3507.png";
+    heroImage.src = "https://kelvinscale.net/wp-content/uploads/2025/01/mixto-image-ks-header.svg";
     heroImage.onload = () => setImagesLoaded(true);
 
     return () => {
@@ -79,7 +79,7 @@ const Hero = () => {
                 <div className="w-full h-96 bg-gradient-to-r from-gray-200 to-gray-300 animate-pulse rounded-3xl"></div>
               )}
               <img 
-                src="/lovable-uploads/39f47b90-761f-4d63-a41c-47282e7b3507.png" 
+                src="https://kelvinscale.net/wp-content/uploads/2025/01/mixto-image-ks-header.svg" 
                 alt="IAEVA atención al cliente con IA" 
                 className={`w-full h-auto rounded-3xl shadow-soft object-cover z-10 relative ${!imagesLoaded ? 'hidden' : ''}`}
                 onError={(e) => {
