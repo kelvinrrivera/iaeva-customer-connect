@@ -47,6 +47,7 @@ const Testimonials = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   const nextTestimonial = () => {
     if (!isAnimating) {
@@ -76,7 +77,8 @@ const Testimonials = () => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in');
+          setIsVisible(true);
+          observer.unobserve(entry.target);
         }
       },
       { threshold: 0.1 }
@@ -97,7 +99,7 @@ const Testimonials = () => {
     <section className="py-20 bg-iaeva-bg-light overflow-hidden">
       <div 
         ref={sectionRef}
-        className="container mx-auto px-4 md:px-6 opacity-0"
+        className={`container mx-auto px-4 md:px-6 transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
       >
         <div className="text-center mb-12">
           <span className="inline-block px-4 py-1.5 rounded-full bg-white text-iaeva-blue font-medium text-sm mb-3">
@@ -148,6 +150,10 @@ const Testimonials = () => {
                           src={testimonial.image}
                           alt={testimonial.name}
                           className="w-full h-full object-cover"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.src = "/placeholder.svg";
+                          }}
                         />
                       </div>
                       

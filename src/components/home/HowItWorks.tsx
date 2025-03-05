@@ -1,5 +1,5 @@
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ImageContainer from './how-it-works/ImageContainer';
 import StepsContainer from './how-it-works/StepsContainer';
 import HowItWorksTitle from './how-it-works/HowItWorksTitle';
@@ -7,12 +7,14 @@ import CTAButton from './how-it-works/CTAButton';
 
 const HowItWorks = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in');
+          setIsVisible(true);
+          observer.unobserve(entry.target);
         }
       },
       { threshold: 0.1 }
@@ -36,7 +38,7 @@ const HowItWorks = () => {
           {/* Left image */}
           <div 
             ref={sectionRef}
-            className="w-full lg:w-1/2 opacity-0"
+            className={`w-full lg:w-1/2 transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
           >
             <ImageContainer 
               imageUrl="/lovable-uploads/cd8c2d66-8439-45cc-a904-ebccb8369983.png"

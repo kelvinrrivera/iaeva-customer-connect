@@ -1,5 +1,5 @@
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface StepProps {
   number: string;
@@ -11,12 +11,14 @@ interface StepProps {
 
 const Step = ({ number, title, description, delay = "0s", color = "from-iaeva-blue to-iaeva-purple" }: StepProps) => {
   const stepRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in-up');
+          setIsVisible(true);
+          observer.unobserve(entry.target);
         }
       },
       { threshold: 0.1 }
@@ -36,8 +38,8 @@ const Step = ({ number, title, description, delay = "0s", color = "from-iaeva-bl
   return (
     <div 
       ref={stepRef}
-      className="relative flex gap-5 opacity-0"
-      style={{ animationDelay: delay, animationFillMode: 'forwards' }}
+      className={`relative flex gap-5 transition-all duration-500 ${isVisible ? 'opacity-100 transform-none' : 'opacity-0 translate-y-4'}`}
+      style={{ transitionDelay: delay }}
     >
       <div className="flex-shrink-0">
         <div className={`flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r ${color} text-white font-bold`}>
