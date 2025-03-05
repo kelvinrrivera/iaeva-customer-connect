@@ -1,16 +1,17 @@
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
 const CTASection = () => {
   const ctaRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in');
+          setIsVisible(true);
         }
       },
       { threshold: 0.1 }
@@ -32,7 +33,7 @@ const CTASection = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div 
           ref={ctaRef}
-          className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-iaeva-blue to-iaeva-purple py-16 px-8 md:px-12 opacity-0"
+          className={`relative rounded-3xl overflow-hidden bg-gradient-to-r from-iaeva-blue to-iaeva-purple py-16 px-8 md:px-12 transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
         >
           {/* Elementos decorativos */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl"></div>
