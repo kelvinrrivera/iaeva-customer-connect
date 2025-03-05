@@ -71,22 +71,24 @@ const Hero = () => {
             </div>
           </div>
           
-          {/* Imagen derecha */}
+          {/* Imagen derecha - Mejorada para ser responsive */}
           <div className="w-full lg:w-1/2 opacity-0 animate-fade-in" style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}>
-            <div className="relative">
+            <div className="relative h-full flex items-center justify-center">
               <div className="absolute inset-0 bg-gradient-radial from-iaeva-blue/10 to-transparent rounded-3xl"></div>
               {!imagesLoaded && (
-                <div className="w-full h-96 bg-gradient-to-r from-gray-200 to-gray-300 animate-pulse rounded-3xl"></div>
+                <div className="w-full aspect-[4/3] md:aspect-[5/3] max-h-[450px] bg-gradient-to-r from-gray-200 to-gray-300 animate-pulse rounded-3xl"></div>
               )}
-              <img 
-                src="https://kelvinscale.net/wp-content/uploads/2025/01/mixto-image-ks-header.svg" 
-                alt="IAEVA atención al cliente con IA" 
-                className={`w-full h-auto rounded-3xl shadow-soft object-cover z-10 relative ${!imagesLoaded ? 'hidden' : ''}`}
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = "/placeholder.svg";
-                }}
-              />
+              <div className="relative w-full h-full max-h-[450px] overflow-hidden rounded-3xl">
+                <img 
+                  src="https://kelvinscale.net/wp-content/uploads/2025/01/mixto-image-ks-header.svg" 
+                  alt="IAEVA atención al cliente con IA" 
+                  className={`w-full h-auto max-h-[450px] object-contain rounded-3xl shadow-soft z-10 ${!imagesLoaded ? 'hidden' : ''}`}
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = "/placeholder.svg";
+                  }}
+                />
+              </div>
               
               {/* Tarjeta flotante */}
               <div className="absolute -bottom-6 -left-6 lg:-left-20 p-4 bg-white/90 backdrop-blur-md border border-white/20 rounded-xl shadow-soft animate-pulse-soft">
