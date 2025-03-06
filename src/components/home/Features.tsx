@@ -1,6 +1,6 @@
 
 import { Check, Clock, Calendar, MessageSquare, Brain, Users, ChevronRight, ArrowRight } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 
@@ -15,12 +15,13 @@ interface FeatureCardProps {
 
 const FeatureCard = ({ icon, title, description, color, delay = "0s", className }: FeatureCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in-up');
+          setIsVisible(true);
         }
       },
       { threshold: 0.1 }
@@ -41,7 +42,8 @@ const FeatureCard = ({ icon, title, description, color, delay = "0s", className 
     <div 
       ref={cardRef}
       className={cn(
-        "bg-white rounded-2xl p-6 border border-gray-100 shadow-soft transition-all hover:shadow-lg opacity-0",
+        "bg-white rounded-2xl p-6 border border-gray-100 shadow-soft transition-all hover:shadow-lg",
+        isVisible ? "opacity-100 animate-fade-in-up" : "opacity-0",
         className
       )}
       style={{ animationDelay: delay, animationFillMode: 'forwards' }}
@@ -57,12 +59,13 @@ const FeatureCard = ({ icon, title, description, color, delay = "0s", className 
 
 const Features = () => {
   const titleRef = useRef<HTMLDivElement>(null);
+  const [isTitleVisible, setIsTitleVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in');
+          setIsTitleVisible(true);
         }
       },
       { threshold: 0.1 }
@@ -127,7 +130,10 @@ const Features = () => {
   return (
     <section className="py-20 bg-gradient-to-b from-white to-iaeva-bg-light">
       <div className="container mx-auto px-4 md:px-6">
-        <div ref={titleRef} className="text-center mb-16 opacity-0">
+        <div 
+          ref={titleRef} 
+          className={`text-center mb-16 transition-opacity duration-500 ${isTitleVisible ? 'opacity-100' : 'opacity-0'}`}
+        >
           <span className="inline-block px-4 py-1.5 rounded-full bg-white text-iaeva-blue font-medium text-sm mb-3">
             Características Principales
           </span>
