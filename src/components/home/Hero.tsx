@@ -50,11 +50,18 @@ const Hero = () => {
               Revolucionando la atención médica
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight">
-              Atención al Cliente <span className="text-iaeva-blue">Inteligente</span> para el Sector Médico
+              <span className="gradient-text">¿Listo para experimentar</span> la diferencia que IAEVA puede hacer en tu centro de salud?
             </h1>
             <p className="text-lg md:text-xl text-gray-600 max-w-xl">
-              IAEVA combina la potencia de la IA con el toque humano para transformar la experiencia del paciente, la gestión de citas y la comunicación en clínicas y hospitales.
+              IAEVA combina la potencia de la IA con el toque humano para transformar la experiencia del paciente, 
+              la gestión de citas y la comunicación en clínicas y hospitales.
             </p>
+            <ul className="list-disc pl-5 text-gray-600 space-y-2">
+              <li>Cómo IAEVA se adapta a tus necesidades específicas.</li>
+              <li>Cómo puedes optimizar tu atención y liberar a tu personal.</li>
+              <li>Cómo mejorar la experiencia de tus pacientes.</li>
+              <li>El potencial de crecimiento que IAEVA te ofrece.</li>
+            </ul>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link 
                 to="/contacto" 
@@ -115,18 +122,6 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        
-        {/* Logos de marcas asociadas */}
-        <div className="mt-16 opacity-0 animate-fade-in" style={{ animationDelay: '0.9s', animationFillMode: 'forwards' }}>
-          <p className="text-center text-gray-500 text-sm mb-6">CONFÍAN EN NOSOTROS</p>
-          <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-8">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div key={i} className="w-32 h-12 flex items-center justify-center opacity-70 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
-                <div className="w-24 h-8 bg-gray-200 rounded-md"></div>
-              </div>
-            ))}
           </div>
         </div>
       </div>
